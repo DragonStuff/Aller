@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+admin.site.site_header = 'Aller Now'
+admin.site.site_title = 'Aller Now'
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^AllerNow/', include('AllerNow.urls')),
