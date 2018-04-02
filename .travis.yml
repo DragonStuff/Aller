@@ -1,5 +1,8 @@
 language: python
 
+python:
+  - "3.6"
+
 before_install:
   - export PYTHONPATH=$HOME/builds/DragonStuff/Aller
   - export PIP_USE_MIRRORS=true
