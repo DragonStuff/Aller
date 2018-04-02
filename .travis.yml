@@ -12,4 +12,4 @@ install:
   - pip install django --quiet
 
 script:
-  - python manage.py syncdb --noinput
+  - python Aller/manage.py syncdb --noinput
