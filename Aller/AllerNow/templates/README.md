@@ -1,0 +1,1 @@
+Please place templates for each part of the program in the salmon folder. Once you have pushed your code, if the view code is finished, it will be pushed to production. Tell Alexander and the team when you have pushed code.
