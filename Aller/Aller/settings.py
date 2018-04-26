@@ -37,12 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django_extensions',
+    'postman',
     'crispy_forms',
     'rest_framework',
     'AllerNow'
 ]
+
+PACKAGE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+PROJECT_ROOT = os.path.abspath(os.path.join(PACKAGE_ROOT, os.pardir))
+
+POSTMAN_AUTO_MODERATE_AS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
