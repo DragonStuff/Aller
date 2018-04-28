@@ -36,6 +36,7 @@ class Location(models.Model):
 
 
 class Car(models.Model):
+
     # List eNum
     DAILY = 'DA'
     WEEKLY = 'WE'
@@ -47,6 +48,7 @@ class Car(models.Model):
         ('MO', 'Monthly'),
         ('YR', 'Yearly'),
     )
+    
     # Fields
     name = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
