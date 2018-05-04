@@ -9,6 +9,7 @@ from django.db.models import *
 from django.urls import reverse
 from django_extensions.db import fields as extension_fields
 from django_extensions.db.fields import AutoSlugField
+import datetime
 
 class Location(models.Model):
 
@@ -24,21 +25,24 @@ class Location(models.Model):
     class Meta:
         ordering = ('-created',)
 
+    def __str__(self):
+        return u'%s' % (self.name,)
+
     def __unicode__(self):
         return u'%s' % self.slug
 
     def get_absolute_url(self):
-        return reverse('app_name_location_detail', args=(self.slug,))
+        return reverse('AllerNow_location_detail', args=(self.slug,))
 
 
     def get_update_url(self):
-        return reverse('app_name_location_update', args=(self.slug,))
+        return reverse('AllerNow_location_update', args=(self.slug,))
 
 
 class Person(models.Model):
 
     # Fields
-    slug = AutoSlugField(populate_from='name', blank=True)
+    slug = AutoSlugField(populate_from='user__username', blank=True)
     created = DateTimeField(auto_now_add=True, editable=False)
     last_updated = DateTimeField(auto_now=True, editable=False)
     first_name = CharField(max_length=30)
@@ -56,15 +60,18 @@ class Person(models.Model):
     class Meta:
         ordering = ('-created',)
 
+    def __str__(self):
+        return u'%s %s' % (self.first_name, self.last_name)
+
     def __unicode__(self):
         return u'%s' % self.slug
 
     def get_absolute_url(self):
-        return reverse('app_name_person_detail', args=(self.slug,))
+        return reverse('AllerNow_person_detail', args=(self.slug,))
 
 
     def get_update_url(self):
-        return reverse('app_name_person_update', args=(self.slug,))
+        return reverse('AllerNow_person_update', args=(self.slug,))
 
 class Car(models.Model):
 
@@ -100,7 +107,7 @@ class Car(models.Model):
     color = models.CharField(max_length=30)
     seats = models.PositiveSmallIntegerField()
     doors = models.PositiveSmallIntegerField()
-    available_from = models.DateField()
+    available_from = models.DateField(default=datetime.date.today)
     available_to = models.DateField()
     image_url = models.URLField()
     listing_type = models.CharField(max_length=2)
@@ -113,12 +120,15 @@ class Car(models.Model):
     class Meta:
         ordering = ('-created',)
 
+    def __str__(self):
+        return u'%s' % (self.name,)
+
     def __unicode__(self):
         return u'%s' % self.slug
 
     def get_absolute_url(self):
-        return reverse('app_name_car_detail', args=(self.slug,))
+        return reverse('AllerNow_car_detail', args=(self.slug,))
 
 
     def get_update_url(self):
-        return reverse('app_name_car_update', args=(self.slug,))
+        return reverse('AllerNow_car_update', args=(self.slug,))

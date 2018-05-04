@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^AllerNow/', include('AllerNow.urls')),
     url(r'^messages/', include('postman.urls', namespace='postman')),
+    url(r'^AllerNow/', include('django.contrib.auth.urls')),
+    url(r'^AllerNow/', include('social_django.urls')),
 ]

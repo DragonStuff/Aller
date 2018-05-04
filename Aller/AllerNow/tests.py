@@ -94,12 +94,12 @@ class LocationViewTest(unittest.TestCase):
         self.client = Client()
 
     def test_list_location(self):
-        url = reverse('app_name_location_list')
+        url = reverse('AllerNow_location_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_create_location(self):
-        url = reverse('app_name_location_create')
+        url = reverse('AllerNow_location_create')
         data = {
             "name": "name",
             "slug": "slug",
@@ -111,7 +111,7 @@ class LocationViewTest(unittest.TestCase):
 
     def test_detail_location(self):
         location = create_location()
-        url = reverse('app_name_location_detail', args=[location.slug,])
+        url = reverse('AllerNow_location_detail', args=[location.slug,])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
@@ -123,7 +123,7 @@ class LocationViewTest(unittest.TestCase):
             "converted_longitude": "converted_longitude",
             "converted_latitude": "converted_latitude",
         }
-        url = reverse('app_name_location_update', args=[location.slug,])
+        url = reverse('AllerNow_location_update', args=[location.slug,])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
@@ -136,12 +136,12 @@ class CarViewTest(unittest.TestCase):
         self.client = Client()
 
     def test_list_car(self):
-        url = reverse('app_name_car_list')
+        url = reverse('AllerNow_car_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_create_car(self):
-        url = reverse('app_name_car_create')
+        url = reverse('AllerNow_car_create')
         data = {
             "name": "name",
             "slug": "slug",
@@ -172,7 +172,7 @@ class CarViewTest(unittest.TestCase):
 
     def test_detail_car(self):
         car = create_car()
-        url = reverse('app_name_car_detail', args=[car.slug,])
+        url = reverse('AllerNow_car_detail', args=[car.slug,])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
@@ -203,7 +203,7 @@ class CarViewTest(unittest.TestCase):
             "location": create_location().pk,
             "owner": create_person().pk,
         }
-        url = reverse('app_name_car_update', args=[car.slug,])
+        url = reverse('AllerNow_car_update', args=[car.slug,])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
@@ -216,12 +216,12 @@ class PersonViewTest(unittest.TestCase):
         self.client = Client()
 
     def test_list_person(self):
-        url = reverse('app_name_person_list')
+        url = reverse('AllerNow_person_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_create_person(self):
-        url = reverse('app_name_person_create')
+        url = reverse('AllerNow_person_create')
         data = {
             "slug": "slug",
             "first_name": "first_name",
@@ -239,7 +239,7 @@ class PersonViewTest(unittest.TestCase):
 
     def test_detail_person(self):
         person = create_person()
-        url = reverse('app_name_person_detail', args=[person.slug,])
+        url = reverse('AllerNow_person_detail', args=[person.slug,])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
@@ -257,6 +257,6 @@ class PersonViewTest(unittest.TestCase):
             "address": "address",
             "user": create_django_contrib_auth_models_user().pk,
         }
-        url = reverse('app_name_person_update', args=[person.slug,])
+        url = reverse('AllerNow_person_update', args=[person.slug,])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
