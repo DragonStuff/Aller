@@ -10,6 +10,9 @@ from .models import Car, Location, Person
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
+# Need to add delete view for Car.
+# https://stackoverflow.com/questions/19382664/python-django-delete-current-object
+
 class LocationListView(ListView):
     model = Location
 
