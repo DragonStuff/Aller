@@ -10,7 +10,6 @@ from django.urls import reverse
 from django_extensions.db import fields as extension_fields
 from django_extensions.db.fields import AutoSlugField
 
-
 class Location(models.Model):
 
     # Fields
