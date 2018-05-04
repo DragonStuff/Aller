@@ -17,7 +17,6 @@ django-appconf==1.0.2
 django-bootstrap-form==3.4
 django-crispy-forms==1.7.0
 django-extensions==2.0.6
-django-payments==0.12.1
 django-postman==3.6.1
 djangorestframework==3.7.7
 hyperlink==18.0.0
