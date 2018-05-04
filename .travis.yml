@@ -12,5 +12,4 @@ install:
   - pip install django --quiet
 
 script:
-  - python Aller/manage.py makemigrations
   - python Aller/manage.py migrate --run-syncdb
