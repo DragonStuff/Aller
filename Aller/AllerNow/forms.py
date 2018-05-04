@@ -1,5 +1,6 @@
 from django import forms
 from .models import Location, Car, Person
+from django.contrib.admin.widgets import AdminDateWidget
 
 
 class LocationForm(forms.ModelForm):
@@ -12,6 +13,8 @@ class CarForm(forms.ModelForm):
     class Meta:
         model = Car
         fields = ['name', 'body_type', 'price_per_unit', 'unit_size', 'year', 'brand', 'plate', 'state', 'registered_owner', 'transmission', 'condition', 'kilometers', 'fuel_type', 'color', 'seats', 'doors', 'available_from', 'available_to', 'image_url', 'listing_type', 'location', 'owner', 'is_rented']
+        available_from = forms.DateField(widget=AdminDateWidget())
+        available_to = forms.DateField(widget=AdminDateWidget())
 
 
 class PersonForm(forms.ModelForm):

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{{ form.media }}
 {% load crispy_forms_tags %}
 {% block content %}
 <p><a class="btn btn-default" href="{% url 'AllerNow_car_list' %}">Car Listing</a></p>
