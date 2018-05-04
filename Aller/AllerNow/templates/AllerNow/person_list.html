@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'AllerNow_person_list' %}">Person Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'app_name_person_list' %}">Person Listing</a></p>
 <table class="table">
 <tr>
 <td>ID</td><td>Link</td>
@@ -13,6 +13,9 @@
     <td>date_of_birth</td>
     <td>phone_number</td>
     <td>postcode</td>
+    <td>email</td>
+    <td>rating</td>
+    <td>address</td>
 </tr>
 {% for object in object_list %}
 <tr>
@@ -26,7 +29,10 @@
     <td>{{ object.date_of_birth }}</td>
     <td>{{ object.phone_number }}</td>
     <td>{{ object.postcode }}</td>
+    <td>{{ object.email }}</td>
+    <td>{{ object.rating }}</td>
+    <td>{{ object.address }}</td>
 </tr>
 {% endfor %}
-</table><a class="btn btn-primary" href="{% url 'AllerNow_person_create' %}">Create new Person</a>
+</table><a class="btn btn-primary" href="{% url 'app_name_person_create' %}">Create new Person</a>
 {% endblock %}

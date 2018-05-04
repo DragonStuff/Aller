@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'AllerNow_car_list' %}">Car Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'app_name_car_list' %}">Car Listing</a></p>
 <table class="table">
 <tr>
 <td>ID</td><td>Link</td>
@@ -10,10 +10,24 @@
     <td>created</td>
     <td>last_updated</td>
     <td>body_type</td>
-    <td>location</td>
     <td>price_per_unit</td>
     <td>unit_size</td>
     <td>year</td>
+    <td>brand</td>
+    <td>plate</td>
+    <td>state</td>
+    <td>registered_owner</td>
+    <td>transmission</td>
+    <td>condition</td>
+    <td>kilometers</td>
+    <td>fuel_type</td>
+    <td>color</td>
+    <td>seats</td>
+    <td>doors</td>
+    <td>available_from</td>
+    <td>available_to</td>
+    <td>image_url</td>
+    <td>listing_type</td>
 </tr>
 {% for object in object_list %}
 <tr>
@@ -24,11 +38,25 @@
     <td>{{ object.created }}</td>
     <td>{{ object.last_updated }}</td>
     <td>{{ object.body_type }}</td>
-    <td>{{ object.location }}</td>
     <td>{{ object.price_per_unit }}</td>
     <td>{{ object.unit_size }}</td>
     <td>{{ object.year }}</td>
+    <td>{{ object.brand }}</td>
+    <td>{{ object.plate }}</td>
+    <td>{{ object.state }}</td>
+    <td>{{ object.registered_owner }}</td>
+    <td>{{ object.transmission }}</td>
+    <td>{{ object.condition }}</td>
+    <td>{{ object.kilometers }}</td>
+    <td>{{ object.fuel_type }}</td>
+    <td>{{ object.color }}</td>
+    <td>{{ object.seats }}</td>
+    <td>{{ object.doors }}</td>
+    <td>{{ object.available_from }}</td>
+    <td>{{ object.available_to }}</td>
+    <td>{{ object.image_url }}</td>
+    <td>{{ object.listing_type }}</td>
 </tr>
 {% endfor %}
-</table><a class="btn btn-primary" href="{% url 'AllerNow_car_create' %}">Create new Car</a>
+</table><a class="btn btn-primary" href="{% url 'app_name_car_create' %}">Create new Car</a>
 {% endblock %}

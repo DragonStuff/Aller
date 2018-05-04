@@ -3,11 +3,11 @@ from . import serializers
 from rest_framework import viewsets, permissions
 
 
-class PersonViewSet(viewsets.ModelViewSet):
-    """ViewSet for the Person class"""
+class LocationViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Location class"""
 
-    queryset = models.Person.objects.all()
-    serializer_class = serializers.PersonSerializer
+    queryset = models.Location.objects.all()
+    serializer_class = serializers.LocationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
@@ -19,11 +19,9 @@ class CarViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class LocationViewSet(viewsets.ModelViewSet):
-    """ViewSet for the Location class"""
+class PersonViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Person class"""
 
-    queryset = models.Location.objects.all()
-    serializer_class = serializers.LocationSerializer
+    queryset = models.Person.objects.all()
+    serializer_class = serializers.PersonSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-

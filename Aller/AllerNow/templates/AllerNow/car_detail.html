@@ -1,17 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'AllerNow_car_list' %}">Car Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'app_name_car_list' %}">Car Listing</a></p>
 <table class="table">
 <tr><td>name</td><td>{{ object.name }}</td></tr>
 <tr><td>slug</td><td>{{ object.slug }}</td></tr>
 <tr><td>created</td><td>{{ object.created }}</td></tr>
 <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
 <tr><td>body_type</td><td>{{ object.body_type }}</td></tr>
-<tr><td>location</td><td>{{ object.location }}</td></tr>
 <tr><td>price_per_unit</td><td>{{ object.price_per_unit }}</td></tr>
 <tr><td>unit_size</td><td>{{ object.unit_size }}</td></tr>
 <tr><td>year</td><td>{{ object.year }}</td></tr>
+<tr><td>brand</td><td>{{ object.brand }}</td></tr>
+<tr><td>plate</td><td>{{ object.plate }}</td></tr>
+<tr><td>state</td><td>{{ object.state }}</td></tr>
+<tr><td>registered_owner</td><td>{{ object.registered_owner }}</td></tr>
+<tr><td>transmission</td><td>{{ object.transmission }}</td></tr>
+<tr><td>condition</td><td>{{ object.condition }}</td></tr>
+<tr><td>kilometers</td><td>{{ object.kilometers }}</td></tr>
+<tr><td>fuel_type</td><td>{{ object.fuel_type }}</td></tr>
+<tr><td>color</td><td>{{ object.color }}</td></tr>
+<tr><td>seats</td><td>{{ object.seats }}</td></tr>
+<tr><td>doors</td><td>{{ object.doors }}</td></tr>
+<tr><td>available_from</td><td>{{ object.available_from }}</td></tr>
+<tr><td>available_to</td><td>{{ object.available_to }}</td></tr>
+<tr><td>image_url</td><td>{{ object.image_url }}</td></tr>
+<tr><td>listing_type</td><td>{{ object.listing_type }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit Car</a>
 

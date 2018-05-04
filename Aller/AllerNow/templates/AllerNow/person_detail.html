@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'AllerNow_person_list' %}">Person Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'app_name_person_list' %}">Person Listing</a></p>
 <table class="table">
 <tr><td>slug</td><td>{{ object.slug }}</td></tr>
 <tr><td>created</td><td>{{ object.created }}</td></tr>
@@ -11,6 +11,9 @@
 <tr><td>date_of_birth</td><td>{{ object.date_of_birth }}</td></tr>
 <tr><td>phone_number</td><td>{{ object.phone_number }}</td></tr>
 <tr><td>postcode</td><td>{{ object.postcode }}</td></tr>
+<tr><td>email</td><td>{{ object.email }}</td></tr>
+<tr><td>rating</td><td>{{ object.rating }}</td></tr>
+<tr><td>address</td><td>{{ object.address }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit Person</a>
 
