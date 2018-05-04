@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.sqlite
 
 # C extensions
 *.so
@@ -101,5 +102,5 @@ ENV/
 .mypy_cache/
 
 # Custom
-.DS_Store
-.pyc
+*.DS_Store
+*.pyc
