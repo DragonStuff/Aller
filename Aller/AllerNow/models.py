@@ -104,7 +104,7 @@ class Car(models.Model):
     available_to = models.DateField()
     image_url = models.URLField()
     listing_type = models.CharField(max_length=2)
-    is_rented = models.BooleanField()
+    is_rented = models.CharField(max_length=10)
 
     # Relationship Fields
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
