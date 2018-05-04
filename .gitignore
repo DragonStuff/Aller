@@ -104,3 +104,4 @@ ENV/
 *.DS_Store
 *.pyc
 *.sqlite3
+*.cpython-36.pyc
