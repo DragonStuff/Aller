@@ -99,4 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
-Aller/AllerNow/templates/.DS_Store
+
+# Custom
+.DS_Store
+.pyc
