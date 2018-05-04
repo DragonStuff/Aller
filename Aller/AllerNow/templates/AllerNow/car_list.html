@@ -28,6 +28,7 @@
     <td>available_to</td>
     <td>image_url</td>
     <td>listing_type</td>
+    <td>is_rented</td>
 </tr>
 {% for object in object_list %}
 <tr>
@@ -56,6 +57,7 @@
     <td>{{ object.available_to }}</td>
     <td>{{ object.image_url }}</td>
     <td>{{ object.listing_type }}</td>
+    <td>{{ object.is_rented }}</td>
 </tr>
 {% endfor %}
 </table><a class="btn btn-primary" href="{% url 'app_name_car_create' %}">Create new Car</a>

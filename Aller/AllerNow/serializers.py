@@ -45,6 +45,7 @@ class CarSerializer(serializers.ModelSerializer):
             'available_to', 
             'image_url', 
             'listing_type', 
+            'is_rented',
         )
 
 

@@ -19,8 +19,11 @@ from django.contrib import admin
 admin.site.site_header = 'Aller Now'
 admin.site.site_title = 'Aller Now'
 
+from django.conf.urls import include, url
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^AllerNow/', include('AllerNow.urls')),
     url(r'^messages/', include('postman.urls', namespace='postman')),
+    url(r'^payments/', include('payments.urls'))
 ]

@@ -11,7 +11,7 @@ class LocationForm(forms.ModelForm):
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['name', 'body_type', 'price_per_unit', 'unit_size', 'year', 'brand', 'plate', 'state', 'registered_owner', 'transmission', 'condition', 'kilometers', 'fuel_type', 'color', 'seats', 'doors', 'available_from', 'available_to', 'image_url', 'listing_type', 'location', 'owner']
+        fields = ['name', 'body_type', 'price_per_unit', 'unit_size', 'year', 'brand', 'plate', 'state', 'registered_owner', 'transmission', 'condition', 'kilometers', 'fuel_type', 'color', 'seats', 'doors', 'available_from', 'available_to', 'image_url', 'listing_type', 'location', 'owner', 'is_rented']
 
 
 class PersonForm(forms.ModelForm):
