@@ -41,7 +41,7 @@ class CarSearchListView(CarListView):
                 functools.reduce(operator.and_,
                        (Q(name__icontains=q) for q in query_list)) |
                 functools.reduce(operator.and_,
-                       (Q(color__icontains=q) for q in query_list)) |
+                       (Q(location__name__icontains=q) for q in query_list)) |
                 functools.reduce(operator.and_,
                        (Q(registered_owner__icontains=q) for q in query_list)) |
                 functools.reduce(operator.and_,
