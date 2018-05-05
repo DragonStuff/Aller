@@ -1,7 +1,7 @@
 import unittest
 from django.urls import reverse
 from django.test import Client
-from .models import Location, Car, Person
+from .models import Location, Car, Person, Payment
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
@@ -85,6 +85,15 @@ def create_person(**kwargs):
         defaults["user"] = create_django_contrib_auth_models_user()
     return Person.objects.create(**defaults)
 
+def create_payment(**kwargs):
+    defaults = {}
+    defaults["name"] = "name"
+    defaults.update(**kwargs)
+    if "personpaying" not in defaults:
+        defaults["personpaying"] = create_person()
+    if "carchoice" not in defaults:
+        defaults["carchoice"] = create_car()
+    return Payment.objects.create(**defaults)
 
 class LocationViewTest(unittest.TestCase):
     '''
@@ -258,5 +267,44 @@ class PersonViewTest(unittest.TestCase):
             "user": create_django_contrib_auth_models_user().pk,
         }
         url = reverse('AllerNow_person_update', args=[person.slug,])
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+
+class PaymentViewTest(unittest.TestCase):
+    '''
+    Tests for Payment
+    '''
+    def setUp(self):
+        self.client = Client()
+
+    def test_list_payment(self):
+        url = reverse('app_name_payment_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_payment(self):
+        url = reverse('app_name_payment_create')
+        data = {
+            "name": "name",
+            "personpaying": create_person().pk,
+            "carchoice": create_car().pk,
+        }
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_detail_payment(self):
+        payment = create_payment()
+        url = reverse('app_name_payment_detail', args=[payment.slug,])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_payment(self):
+        payment = create_payment()
+        data = {
+            "name": "name",
+            "personpaying": create_person().pk,
+            "carchoice": create_car().pk,
+        }
+        url = reverse('app_name_payment_update', args=[payment.slug,])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)

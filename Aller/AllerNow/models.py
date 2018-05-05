@@ -53,6 +53,9 @@ class Person(models.Model):
     email = models.CharField(max_length=30)
     rating = models.PositiveSmallIntegerField()
     address = models.TextField(max_length=100)
+    paycardnumber = models.CharField(max_length=30)
+    paycardname = models.CharField(max_length=30)
+    paycardexpiry = models.TextField(max_length=5)
 
     # Relationship Fields
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -132,3 +135,28 @@ class Car(models.Model):
 
     def get_update_url(self):
         return reverse('AllerNow_car_update', args=(self.slug,))
+
+class Payment(models.Model):
+
+    # Fields
+    name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    # Relationship Fields
+    personpaying = models.ForeignKey(on_delete=models.CASCADE)
+    carchoice = models.ForeignKey(on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __unicode__(self):
+        return u'%s' % self.slug
+
+    def get_absolute_url(self):
+        return reverse('app_name_payment_detail', args=(self.slug,))
+
+
+    def get_update_url(self):
+        return reverse('app_name_payment_update', args=(self.slug,))

@@ -79,3 +79,20 @@ class PersonDetailView(DetailView):
 class PersonUpdateView(UpdateView):
     model = Person
     form_class = PersonForm
+
+class PaymentListView(ListView):
+    model = Payment
+
+
+class PaymentCreateView(CreateView):
+    model = Payment
+    form_class = PaymentForm
+
+
+class PaymentDetailView(DetailView):
+    model = Payment
+
+
+class PaymentUpdateView(UpdateView):
+    model = Payment
+    form_class = PaymentForm

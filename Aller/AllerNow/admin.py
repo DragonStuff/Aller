@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Location, Car, Person
+from .models import Location, Car, Person, Payment
 
 class LocationAdminForm(forms.ModelForm):
 
@@ -42,3 +42,17 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ['slug', 'created', 'last_updated', 'first_name', 'last_name', 'date_of_birth', 'phone_number', 'postcode', 'email', 'rating', 'address']
 
 admin.site.register(Person, PersonAdmin)
+
+class PaymentAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Payment
+        fields = '__all__'
+
+
+class PaymentAdmin(admin.ModelAdmin):
+    form = PaymentAdminForm
+    list_display = ['name', 'slug', 'created', 'last_updated']
+    readonly_fields = ['name', 'slug', 'created', 'last_updated']
+
+admin.site.register(Payment, PaymentAdmin)

@@ -1,6 +1,7 @@
 from django import forms
 from .models import Location, Car, Person
-from django.contrib.admin.widgets import AdminDateWidget
+from django.contrib.admin.widgets import AdminDateWidget, Payment
+
 
 
 class LocationForm(forms.ModelForm):
@@ -21,3 +22,8 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ['first_name', 'last_name', 'date_of_birth', 'phone_number', 'postcode', 'email', 'rating', 'address', 'user']
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        fields = ['name', 'personpaying', 'carchoice']

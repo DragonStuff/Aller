@@ -67,3 +67,13 @@ class PersonSerializer(serializers.ModelSerializer):
             'address', 
         )
 
+class PaymentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Payment
+        fields = (
+            'slug', 
+            'name', 
+            'created', 
+            'last_updated', 
+        )
