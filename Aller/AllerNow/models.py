@@ -145,8 +145,8 @@ class Payment(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     # Relationship Fields
-    personpaying = models.ForeignKey(on_delete=models.CASCADE)
-    carchoice = models.ForeignKey(on_delete=models.CASCADE)
+    personpaying = models.ForeignKey(Person, on_delete=models.CASCADE)
+    carchoice = models.ForeignKey(Car, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('-created',)

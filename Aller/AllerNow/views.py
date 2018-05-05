@@ -4,8 +4,8 @@ import operator
 from django.db.models import Q
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import CarForm, LocationForm, PersonForm
-from .models import Car, Location, Person
+from .forms import CarForm, LocationForm, PersonForm, PaymentForm
+from .models import Car, Location, Person, Payment
 
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
