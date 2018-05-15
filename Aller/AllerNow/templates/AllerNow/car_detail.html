@@ -95,7 +95,7 @@
 											<p> Last Updated {{  object.last_updated  }}  </p>
 											<button class="btn btn-primary" href="{{ object.slug }}">Rent this car</button>
                                             &nbsp;&nbsp;
-                                            {% with usertosend=object.owner.first_name %}
+                                            {% with usertosend=object.owner.user.username %}
 											    <a href="/messages/write/{{ usertosend }}/?subject=Enquiry for your {{ object.body_type }} {{ object.year }} request&body=I am enquiring about your vehicle {{ object.name }} ..."><button class="btn btn-primary">Message</button></a>
                                             {% endwith %}
 										</div>
