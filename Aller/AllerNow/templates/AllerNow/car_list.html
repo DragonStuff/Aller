@@ -1,68 +1,122 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
-<p><a class="btn btn-default" href="{% url 'AllerNow_car_list' %}">Car Listing</a></p>
-<table class="table">
-<tr>
-<td>ID</td><td>Link</td>
-    <td>name</td>
-    <td>slug</td>
-    <td>created</td>
-    <td>last_updated</td>
-    <td>body_type</td>
-    <td>price_per_unit</td>
-    <td>unit_size</td>
-    <td>year</td>
-    <td>brand</td>
-    <td>plate</td>
-    <td>state</td>
-    <td>registered_owner</td>
-    <td>transmission</td>
-    <td>condition</td>
-    <td>kilometers</td>
-    <td>fuel_type</td>
-    <td>color</td>
-    <td>seats</td>
-    <td>doors</td>
-    <td>available_from</td>
-    <td>available_to</td>
-    <td>image_url</td>
-    <td>listing_type</td>
-    <td>is_rented</td>
-    <td>location</td>
-    <td>user</td>
-</tr>
-{% for object in object_list %}
-<tr>
-    <td>{{object.pk}}</td>
-    <td><a href="{{object.get_absolute_url}}">{{object}}</a></td>
-    <td>{{ object.name }}</td>
-    <td>{{ object.slug }}</td>
-    <td>{{ object.created }}</td>
-    <td>{{ object.last_updated }}</td>
-    <td>{{ object.body_type }}</td>
-    <td>{{ object.price_per_unit }}</td>
-    <td>{{ object.unit_size }}</td>
-    <td>{{ object.year }}</td>
-    <td>{{ object.brand }}</td>
-    <td>{{ object.plate }}</td>
-    <td>{{ object.state }}</td>
-    <td>{{ object.registered_owner }}</td>
-    <td>{{ object.transmission }}</td>
-    <td>{{ object.condition }}</td>
-    <td>{{ object.kilometers }}</td>
-    <td>{{ object.fuel_type }}</td>
-    <td>{{ object.color }}</td>
-    <td>{{ object.seats }}</td>
-    <td>{{ object.doors }}</td>
-    <td>{{ object.available_from }}</td>
-    <td>{{ object.available_to }}</td>
-    <td>{{ object.image_url }}</td>
-    <td>{{ object.listing_type }}</td>
-    <td>{{ object.is_rented }}</td>
-    <td>{{ object.location }}</td>
-    <td>{{ object.owner }}</td>
-</tr>
-{% endfor %}
-</table><a class="btn btn-primary" href="{% url 'AllerNow_car_create' %}">Create new Car</a>
-{% endblock %}
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Aller Now</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="index.html" class="logo"><strong>Aller</strong> <span>Now</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="listing.html">Listing</a></li>
+							<!--<li><a href="generic.html">Generic</a></li>-->
+							<li><a href="profile.html">Profile</a></li>
+						</ul>
+						<ul class="actions vertical">
+							<!--<li><a href="#" class="button special fit">Get Started</a></li>-->
+							<li><a href="login.html" class="button fit">Log In</a></li>
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+				<!-- Note: The "styleN" class below should match that of the header element. -->
+					<section class="inner">
+						<div class="inner">
+							<header class="major">
+								<h1>Listings</h1>
+							</header>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h2>We found these cars for you </h2>
+									</header>
+									
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two" class="spotlights">
+								{% for object in object_list %}
+								<section>
+									<a href="generic.html" class="image">
+										<img src={{ object.image_url }} data-position="center center" />
+									</a>
+									<div class="content">
+										<div class="inner">
+											<header class="major">
+												<h3>{{ object.name }} | {{object.brand}} | {{object.body_type}} |      {{object.price_per_unit}} | {{object.unit_size}} </h3>
+											</header>
+											<p> Transmission {{ object.transmission}}  </p>
+											<p> Kilometers {{  object.kilometers}}  </p>
+											<p> Seat {{   object.seats}}  </p>
+											<p> Condition {{  object.condition }}  </p>
+											<p> Year {{  object.year }}  </p>
+											<button class="btn btn-primary" href="{{ object.slug }}">View more</button>
+										</div>
+									</div>
+								</section>
+								{% endfor %}
+							</section>
+
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+	</body>
+</html>
