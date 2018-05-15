@@ -68,7 +68,7 @@
 							<section id="two" class="spotlights">
 								{% for object in object_list %}
 								<section>
-									<a href="generic.html" class="image">
+									<a href="{{ object.slug }}" class="image">
 										<img src={{ object.image_url }} data-position="center center" />
 									</a>
 									<div class="content">
