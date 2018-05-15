@@ -85,7 +85,24 @@
 										</div>
 									</div>
 								</section>
-								{% endfor %}
+                                {% endfor %}
+                                {% if is_paginated %}
+                                    <div class="pagination">
+                                        <span class="page-links">
+                                            {% if page_obj.has_previous %}
+                                                <a href="/AllerNow/car/{{ page_obj.previous_page_number }}">Previous</a>
+                                            {% endif %}
+                                            <span class="page-current">
+                                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                            </span>
+                                            {% if page_obj.has_next %}
+                                                <a href="/AllerNow/car/{{ page_obj.next_page_number }}">Next</a>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                {% else %}
+                                    <p><br>End of listings.<br></p>
+                                {% endif %}
 							</section>
 
 

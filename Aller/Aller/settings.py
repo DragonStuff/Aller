@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'social_django',
+    'autofixture',
     'AllerNow'
 ]
 

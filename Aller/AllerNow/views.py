@@ -29,10 +29,12 @@ class LocationUpdateView(UpdateView):
 
 class CarListView(ListView):
     model = Car
+    context_object_name = "AllerNow_car_list"
+    paginate_by = 10
 
 class CarSearchListView(CarListView):
     """
-    Display a Blog List page filtered by the search query.
+    Display a Car List page filtered by the search query.
     """
     paginate_by = 10
 

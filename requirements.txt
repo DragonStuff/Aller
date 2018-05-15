@@ -20,6 +20,8 @@ django-crispy-forms==1.7.0
 django-extensions==2.0.6
 django-postman==3.6.1
 djangorestframework==3.7.7
+factory-boy==2.11.1
+Faker==0.8.15
 hyperlink==18.0.0
 idna==2.6
 incremental==17.5.0
@@ -30,6 +32,7 @@ oauthlib==2.0.7
 pycparser==2.18
 PyJWT==1.6.1
 pylint==1.8.3
+python-dateutil==2.7.3
 python-dotenv==0.8.2
 python3-openid==3.1.0
 pytz==2018.3
@@ -40,6 +43,7 @@ social-auth-app-django==2.1.0
 social-auth-core==1.7.0
 stripe==1.79.1
 suds-jurko==0.6
+text-unidecode==1.2
 Twisted==17.9.0
 txaio==2.9.0
 urllib3==1.22
