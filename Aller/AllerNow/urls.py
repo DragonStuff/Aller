@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
+from django.views.generic.base import RedirectView
 
 from . import api
 from . import views
@@ -28,6 +29,7 @@ urlpatterns += (
     path('car/', views.CarListView.as_view(), name='AllerNow_car_list'),
     path('car/create/', views.CarCreateView.as_view(), name='AllerNow_car_create'),
     path('car/detail/<slug:slug>/', views.CarDetailView.as_view(), name='AllerNow_car_detail'),
+    path('car/<slug:slug>/', RedirectView.as_view(pattern_name='AllerNow_car_detail'), name='redirectCar'),
     path('car/update/<slug:slug>/', views.CarUpdateView.as_view(), name='AllerNow_car_update'),
 )
 
