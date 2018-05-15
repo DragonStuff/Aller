@@ -1,33 +1,134 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
-<p><a class="btn btn-default" href="{% url 'AllerNow_car_list' %}">Car Listing</a></p>
-<table class="table">
-<tr><td>name</td><td>{{ object.name }}</td></tr>
-<tr><td>slug</td><td>{{ object.slug }}</td></tr>
-<tr><td>created</td><td>{{ object.created }}</td></tr>
-<tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-<tr><td>body_type</td><td>{{ object.body_type }}</td></tr>
-<tr><td>price_per_unit</td><td>{{ object.price_per_unit }}</td></tr>
-<tr><td>unit_size</td><td>{{ object.unit_size }}</td></tr>
-<tr><td>year</td><td>{{ object.year }}</td></tr>
-<tr><td>brand</td><td>{{ object.brand }}</td></tr>
-<tr><td>plate</td><td>{{ object.plate }}</td></tr>
-<tr><td>state</td><td>{{ object.state }}</td></tr>
-<tr><td>registered_owner</td><td>{{ object.registered_owner }}</td></tr>
-<tr><td>transmission</td><td>{{ object.transmission }}</td></tr>
-<tr><td>condition</td><td>{{ object.condition }}</td></tr>
-<tr><td>kilometers</td><td>{{ object.kilometers }}</td></tr>
-<tr><td>fuel_type</td><td>{{ object.fuel_type }}</td></tr>
-<tr><td>color</td><td>{{ object.color }}</td></tr>
-<tr><td>seats</td><td>{{ object.seats }}</td></tr>
-<tr><td>doors</td><td>{{ object.doors }}</td></tr>
-<tr><td>available_from</td><td>{{ object.available_from }}</td></tr>
-<tr><td>available_to</td><td>{{ object.available_to }}</td></tr>
-<tr><td>image_url</td><td>{{ object.image_url }}</td></tr>
-<tr><td>listing_type</td><td>{{ object.listing_type }}</td></tr>
-<tr><td>is_rented</td><td>{{ object.is_rented }}</td></tr>
-</table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Car</a>
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Aller Now</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
 
-{% endblock %}
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="index.html" class="logo"><strong>Aller</strong> <span>Now</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="listing.html">Listing</a></li>
+							<!--<li><a href="generic.html">Generic</a></li>-->
+							<li><a href="profile.html">Profile</a></li>
+						</ul>
+						<ul class="actions vertical">
+							<!--<li><a href="#" class="button special fit">Get Started</a></li>-->
+							<li><a href="login.html" class="button fit">Log In</a></li>
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+				<!-- Note: The "styleN" class below should match that of the header element. -->
+					<section class="inner">
+						<div class="inner">
+							<header class="major">
+								<h1>Listings</h1>
+							</header>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h2>Car Details</h2>
+									</header>
+									
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two" class="spotlights">
+								
+								<section>
+									<a href="generic.html" class="image">
+										<img src={{ object.image_url }} data-position="center center" />
+									</a>
+									<div class="content">
+										<div class="inner">
+											<header class="major">
+												<h3>{{ object.name }} | {{object.brand}} | {{object.body_type}} |      {{object.price_per_unit}} | {{object.unit_size}} </h3>
+											</header>
+											<p> Transmission {{ object.transmission}}  </p>
+											<p> Kilometers {{  object.kilometers}}  </p>
+											<p> Seat {{   object.seats}}  </p>
+											<p> Condition {{  object.condition }}  </p>
+											<p> Plate {{  object.plate }}  </p>
+											<p> State {{  object.state }}  </p>
+											<p> Registered Owner {{  object.registered_owner }}  </p>
+											<p> Fuel Type {{  object.fuel_type }}  </p>
+											<p> Color {{  object.color }}  </p>
+											<p> Doors {{  object.doors }}  </p>
+											<p> Available From  {{  object.available_from  }}  </p>
+											<p> Available To  {{  object.available_to  }}  </p>
+											<p> Created {{  object.created  }}  </p>
+											<p> Last Updated {{  object.last_updated  }}  </p>
+											<button class="btn btn-primary" href="{{ object.slug }}">Rent this car</button>
+											&nbsp;&nbsp;
+											<button class="btn btn-primary" href="{% url 'postman:write' {{ object.owner__first_name }} %}?subject=Enquiry for your {{ object.body_type }} {{ object.year }}  request&body=I am enquiring about your vehicle {{ object.name }} ...">Message</button>
+									
+										</div>
+									</div>
+								</section>
+								
+							</section>
+
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
