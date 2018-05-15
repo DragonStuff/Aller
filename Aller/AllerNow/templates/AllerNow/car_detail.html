@@ -4,15 +4,18 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
+{% load static %}
+
 <html>
 	<head>
 		<title>Aller Now</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
 	</head>
 	<body>
 
@@ -69,7 +72,7 @@
 								
 								<section>
 									<a href="generic.html" class="image">
-										<img src={{ object.image_url }} data-position="center center" />
+										<img src="{{ object.image_url }}" data-position="center center" />
 									</a>
 									<div class="content">
 										<div class="inner">
@@ -92,7 +95,7 @@
 											<p> Last Updated {{  object.last_updated  }}  </p>
 											<button class="btn btn-primary" href="{{ object.slug }}">Rent this car</button>
 											&nbsp;&nbsp;
-											<button class="btn btn-primary" href="{% url 'postman:write' {{ object.owner__first_name }} %}?subject=Enquiry for your {{ object.body_type }} {{ object.year }}  request&body=I am enquiring about your vehicle {{ object.name }} ...">Message</button>
+											<button class="btn btn-primary" href="{% url 'postman:write' "{{ object.owner__first_name }}" %}?subject=Enquiry for your {{ object.body_type }} {{ object.year }}  request&body=I am enquiring about your vehicle {{ object.name }} ...">Message</button>
 									
 										</div>
 									</div>
@@ -122,13 +125,13 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
 
 	</body>
 </html>
