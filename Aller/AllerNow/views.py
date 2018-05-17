@@ -13,6 +13,19 @@ from django.template.response import TemplateResponse
 # Need to add delete view for Car.
 # https://stackoverflow.com/questions/19382664/python-django-delete-current-object
 
+class IndexView(ListView):
+    template_name = 'AllerNow/index.html'
+    context_object_name = 'index'
+
+    def get_queryset(self):
+        """Return the last five published polls."""
+        return Car.objects.order_by('-available_from')[:5]
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(IndexView, self).get_context_data(*args, **kwargs)
+        context['AllerNow_location_list'] = Location.objects.order_by('name')[:5]
+        return context 
+
 class LocationListView(ListView):
     model = Location
 

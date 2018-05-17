@@ -17,6 +17,11 @@ urlpatterns = (
 )
 
 urlpatterns += (
+    # Dashboard URLs
+    path('', views.IndexView.as_view(), name="IndexView"),
+)
+
+urlpatterns += (
     # urls for Person
     path('person/', views.PersonListView.as_view(), name='AllerNow_person_list'),
     path('person/create/', views.PersonCreateView.as_view(), name='AllerNow_person_create'),
@@ -28,10 +33,11 @@ urlpatterns += (
     # urls for Car
     path('car/', views.CarListView.as_view(), name='AllerNow_car_list'),
     path('car/<int:page>', views.CarListView.as_view(), name='AllerNow_car_list'),
-    path('car/<slug:slug>/', RedirectView.as_view(pattern_name='AllerNow_car_detail'), name='AllerNow_car_detail'),
+    path('car/<slug:slug>', RedirectView.as_view(pattern_name='AllerNow_car_detail'), name='AllerNow_car_detail'),
     path('car/create/', views.CarCreateView.as_view(), name='AllerNow_car_create'),
     path('car/detail/<slug:slug>/', views.CarDetailView.as_view(), name='AllerNow_car_detail'),
     path('car/update/<slug:slug>/', views.CarUpdateView.as_view(), name='AllerNow_car_update'),
+    path('car/search/', views.CarSearchListView.as_view(), name='car_search_list_view'),
 )
 
 urlpatterns += (
