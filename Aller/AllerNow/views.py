@@ -57,6 +57,7 @@ class CarSearchListView(CarListView):
         query = self.request.GET.get('q')
         if query:
             query_list = query.split()
+            print(query_list)
             result = result.filter(
                 functools.reduce(operator.and_,
                        (Q(name__icontains=q) for q in query_list)) |
