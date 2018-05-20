@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Payment:</h1>
+
+<table style="width:100%">
+    <tr>
+        <th>Photo</th>
+        <th>Listing Name</th>
+        <th>Amount/{{ car.unit_size }}</th>
+        <th>Days:</th>
+        <th>Maximum days:</th>
+    </tr>
+    <tr>
+        <td><img width="75px" src="{{ car.image_url }}" /></td>
+        <td>{{ car.name }}</td> 
+        <td>{{ car.price_per_unit }}/{{ car.unit_size }}</td>
+        <td>{{ days }}</td>
+        <td id="maxday">{{ maxDays }}</td>
+    </tr>
+</table>
+<form method="post">
+    <h4>Subtotal: ${% widthratio car.price_per_unit 1 days %} AUD</h4>
+    <h4>GST: ${{ gst|floatformat:'2' }} AUD</h4>
+    <h4>Total: ${{ total|floatformat:'2' }} AUD</h4>
+    <hr>
+
+    <div id="paybycredit" style="">
+        <h3>You are paying with your account credit:</h3>
+        <p>You currently have the following amount of credit: ${{ request.user.person.credit_aud }} AUD</p>
+        <p>You will have the following remaining amount of credit: ${{ remainingCredit }} AUD</p>
+    </div>
+
+    <div id="paybycard" style="display: none">
+        <h3>You are paying with your card:</h3>
+        <table style="width:100%">
+            <tr>
+                <th>Card Name</th>
+                <th>Card Number</th> 
+                <th>Card Expiry</th>
+            </tr>
+            <tr>
+                <td>{{ request.user.person.paycardname }}</td>
+                <td>{{ request.user.person.paycardnumber }}</td> 
+                <td>{{ request.user.person.paycardexpiry }}</td>
+            </tr>
+        </table>
+    </div>
+    {% csrf_token %}
+    <input type="hidden" name="amount" value="{{ total }}">
+    <input type="hidden" name="days" value=" {{ days }}">
+    <input type="hidden" name="personpaying" value="{{ request.user }}">
+    <input type="hidden" name="carchoice" value="{{ car }}">
+    <button type="submit">Pay Now</button>
+</form>
+<!--{{ user_form.as_p }}-->
+{% endblock %}

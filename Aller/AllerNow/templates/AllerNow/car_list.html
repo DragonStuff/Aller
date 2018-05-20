@@ -11,17 +11,17 @@
     <div id="main">
         <!-- One -->
         <section id="one">
+                <button style="float: right"><a href="/AllerNow/car/create/">Create a listing.</a></button><br>
             <div class="inner">
                 <header class="major">
                     <h2>We found these cars for you </h2>
                 </header>
-                
             </div>
         </section>
         <!-- Two -->
         <section id="two" class="spotlights">
             {% for object in object_list %}
-            <section>
+            <section style="display:{{ object.is_rented }}">
                 <a href="{{ object.slug }}" class="image">
                     <img src={{ object.image_url }} data-position="center center" />
                 </a>

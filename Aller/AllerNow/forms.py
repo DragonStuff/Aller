@@ -1,8 +1,19 @@
 from django import forms
 from .models import Location, Car, Person, Payment
 from django.contrib.admin.widgets import AdminDateWidget
+from django.contrib.auth.models import User
 
+# User view, update and control.
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
 
+class PersonForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = ('first_name', 'last_name', 'date_of_birth', 'phone_number', 'postcode', 'email', 'address')
+        readonly_fields = ('user', 'rating')
 
 class LocationForm(forms.ModelForm):
     class Meta:
@@ -17,13 +28,7 @@ class CarForm(forms.ModelForm):
         available_from = forms.DateField(widget=AdminDateWidget())
         available_to = forms.DateField(widget=AdminDateWidget())
 
-
-class PersonForm(forms.ModelForm):
-    class Meta:
-        model = Person
-        fields = ['first_name', 'last_name', 'date_of_birth', 'phone_number', 'postcode', 'email', 'rating', 'address', 'user']
-
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ['name', 'personpaying', 'carchoice']
+        fields = ['personpaying', 'carchoice', 'amount', 'days']

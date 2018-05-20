@@ -4,14 +4,120 @@ import operator
 from django.db.models import Q
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import CarForm, LocationForm, PersonForm, PaymentForm
+from .forms import CarForm, LocationForm, PersonForm, PaymentForm, UserForm
 from .models import Car, Location, Person, Payment
 
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.contrib.auth.decorators import login_required
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+import json
+
+from django.contrib import messages
+
+from django.forms import inlineformset_factory
+import datetime
+from django.db.models import Avg
 
 # Need to add delete view for Car.
 # https://stackoverflow.com/questions/19382664/python-django-delete-current-object
+
+# Custom Person exposed through Payment view for Rating
+def rate(request, paymentid, rating):
+    # Set a payment rating
+    paymentrating = Payment.objects.get(id=paymentid)
+    paymentrating.rating = rating
+    paymentrating.save()
+
+    # Update the user
+    p = Payment.objects.filter(carchoice__owner__id=paymentrating.carchoice.owner.id)
+    carowner = Person.objects.get(id=paymentrating.carchoice.owner.id)
+    print(list(p.aggregate(Avg('rating')).values()))
+    carowner.rating = list(p.aggregate(Avg('rating')).values())[0]
+    carowner.save()
+
+    return redirect('dashboard')
+
+# Custom Payment view for controlling link between Person and Payment
+def create_payment(request, carChoice, days):
+    car = Car.objects.get(id=carChoice)
+    diff = abs((car.available_from-car.available_to).days)
+    if request.method == 'POST':
+            payment = Payment(
+                amount = (car.price_per_unit * days) + ((car.price_per_unit * days) / 10),
+                days = days,
+                personpaying = request.user.person,
+                carchoice = car
+            )
+            payment.save()
+            car.is_rented = "none"
+            car.save()
+            request.user.person.credit_aud = request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10))
+            request.user.person.save()
+            messages.success(request, ('Your payment was successfully completed!'))
+            return redirect('dashboard')
+    else:
+        paymentf = PaymentForm()
+    return render(request, 'AllerNow/payment_car.html', {
+        'car': car,
+        'payment': paymentf,
+        'days': days,
+        'remainingCredit': request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10)),
+        'total': (car.price_per_unit * days),
+        'gst': ((car.price_per_unit * days) / 10),
+        'maxDays': diff,
+    })
+
+# User update
+def update_profile(request):
+    obj, created = Person.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        person_form = PersonForm(request.POST, instance=request.user.person)
+        if user_form.is_valid() and person_form.is_valid():
+            user_form.save()
+            person_form.save()
+            messages.success(request, ('Your profile was successfully updated!'))
+            return redirect('dashboard')
+        else:
+            messages.error(request, _('Please correct the error.'))
+    else:
+        user_form = UserForm(instance=request.user)
+        person_form = PersonForm(instance=request.user.person)
+    return render(request, 'AllerNow/dashboard_update.html', {
+        'user_form': user_form,
+        'person_form': person_form
+    })
+
+def dashboard(request):
+    user = request.user
+    auth0user = user.social_auth.get(provider="auth0")
+    userdata = {
+        'user_id': auth0user.uid,
+        'name': user.first_name,
+        'picture': auth0user.extra_data['picture']
+    }
+    try:
+        myCars = Car.objects.filter(owner=request.user.person).values()
+    except:
+        myCars = ""
+    try:
+        rentedCars = Payment.objects.filter(personpaying=request.user.person)
+    except:
+        rentedCars = ""
+    
+    return render(request, 'AllerNow/dashboard.html', {
+        'auth0User': auth0user,
+        'userdata': json.dumps(userdata, indent=4),
+        'myCars': myCars,
+        'rentedCars': rentedCars,
+    })
+
 
 class IndexView(ListView):
     template_name = 'AllerNow/index.html'
@@ -59,18 +165,12 @@ class CarSearchListView(CarListView):
             query_list = query.split()
             print(query_list)
             result = result.filter(
-                functools.reduce(operator.and_,
-                       (Q(name__icontains=q) for q in query_list)) |
-                functools.reduce(operator.and_,
-                       (Q(location__name__icontains=q) for q in query_list)) |
-                functools.reduce(operator.and_,
-                       (Q(year__icontains=q) for q in query_list)) |
-                functools.reduce(operator.and_,
-                       (Q(registered_owner__icontains=q) for q in query_list)) |
-                functools.reduce(operator.and_,
-                       (Q(brand__icontains=q) for q in query_list))
+                functools.reduce(operator.or_, (Q(name__icontains=q) for q in query_list)) |
+                functools.reduce(operator.or_, (Q(location__name__icontains=q) for q in query_list)) |
+                functools.reduce(operator.or_, (Q(year__icontains=q) for q in query_list)) |
+                functools.reduce(operator.or_, (Q(registered_owner__icontains=q) for q in query_list)) |
+                functools.reduce(operator.or_, (Q(brand__icontains=q) for q in query_list))
             )
-
         return result
 
 class CarCreateView(CreateView):
