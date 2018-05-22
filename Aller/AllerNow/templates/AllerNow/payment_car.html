@@ -26,8 +26,8 @@
 
     <div id="paybycredit" style="">
         <h3>You are paying with your account credit:</h3>
-        <p>You currently have the following amount of credit: ${{ request.user.person.credit_aud }} AUD</p>
-        <p>You will have the following remaining amount of credit: ${{ remainingCredit }} AUD</p>
+        <p>You currently have the following amount of credit: ${{ request.user.person.credit_aud|floatformat:'2' }} AUD</p>
+        <p>You will have the following remaining amount of credit: ${{ remainingCredit|floatformat:'2' }} AUD</p>
     </div>
 
     <div id="paybycard" style="display: none">

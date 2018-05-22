@@ -66,7 +66,7 @@ def create_payment(request, carChoice, days):
         'payment': paymentf,
         'days': days,
         'remainingCredit': request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10)),
-        'total': (car.price_per_unit * days),
+        'total': ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10)),
         'gst': ((car.price_per_unit * days) / 10),
         'maxDays': diff,
     })
