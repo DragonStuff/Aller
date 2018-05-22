@@ -49,7 +49,8 @@ def create_payment(request, carChoice, days):
                 amount = (car.price_per_unit * days) + ((car.price_per_unit * days) / 10),
                 days = days,
                 personpaying = request.user.person,
-                carchoice = car
+                carchoice = car,
+                rating = 5
             )
             payment.save()
             car.is_rented = "none"

@@ -164,5 +164,5 @@ AUTHENTICATION_BACKENDS = {
 }
 
 LOGIN_URL = "/AllerNow/login/auth0"
-LOGIN_REDIRECT_URL = "/AllerNow/dashboard"
+LOGIN_REDIRECT_URL = "/AllerNow/dashboard/update/"
 LOGOUT_REDIRECT_URL = "/AllerNow/"

@@ -59,7 +59,7 @@ class Person(models.Model):
     phone_number = models.CharField(max_length=10, blank=True)
     postcode = CharField(max_length=4, blank=True)
     email = models.CharField(max_length=30, blank=True)
-    rating = models.PositiveSmallIntegerField(default=3)
+    rating = models.PositiveSmallIntegerField(blank=True, null=True)
     address = models.TextField(max_length=100, blank=True)
 
     # Payment
