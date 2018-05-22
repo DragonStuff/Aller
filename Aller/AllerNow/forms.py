@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = ('first_name', 'last_name', 'date_of_birth', 'phone_number', 'postcode', 'email', 'address')
+        fields = ('first_name', 'last_name', 'date_of_birth', 'phone_number', 'postcode', 'email', 'address', 'paycardnumber', 'paycardname', 'paycardexpiry')
         readonly_fields = ('user', 'rating')
 
 class LocationForm(forms.ModelForm):
