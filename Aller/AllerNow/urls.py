@@ -17,14 +17,14 @@ urlpatterns = (
     # URLs for Django Rest Framework API
     path('api/v1/', include(router.urls)),
     # View for dashboard
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/', login_required(views.dashboard), name='dashboard'),
     path('dashboard/update/', login_required(transaction.atomic(views.update_profile)), name='dashboard_update')
 )
 
 urlpatterns += (
     # Dashboard URLs
     path('', views.IndexView.as_view(), name="IndexView"),
-    path('rating/<str:paymentid>/<int:rating>/', views.rate, name="RatingView"),
+    path('rating/<str:paymentid>/<int:rating>/', login_required(views.rate), name="RatingView"),
 )
 
 urlpatterns += (
