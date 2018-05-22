@@ -98,6 +98,12 @@
 	<!-- Contact -->
 	<section id="contact">
 		<div class="inner">
+			<section>
+				<h3>Latest listings:</h3>
+				{% for object in index %}
+					<p><a href="{{ object.slug }}">{{ object.name }}</a></p>
+				{% endfor %}
+			</section>
 			<section class="split">
 				<section>
 					<div class="contact-method">

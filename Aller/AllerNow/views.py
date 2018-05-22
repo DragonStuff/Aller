@@ -126,7 +126,7 @@ class IndexView(ListView):
 
     def get_queryset(self):
         """Return the last five published polls."""
-        return Car.objects.order_by('-available_from')[:5]
+        return Car.objects.order_by('-created')[:5]
 
     def get_context_data(self, *args, **kwargs):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
