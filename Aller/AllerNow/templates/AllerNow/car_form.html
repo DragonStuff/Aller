@@ -7,6 +7,7 @@
 <form method="post">
 {% csrf_token %}
 {{form|crispy}}
+    <select name="owner" class="select" required="" id="id_owner" style="display:none"> <option value="{{ user.person.id }}" selected="">---------</option></select>
 <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 {% endblock %}

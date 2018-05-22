@@ -124,10 +124,10 @@ class Car(models.Model):
     seats = models.PositiveSmallIntegerField()
     doors = models.PositiveSmallIntegerField()
     available_from = models.DateField(default=datetime.date.today)
-    available_to = models.DateField()
-    image_url = models.URLField()
-    listing_type = models.CharField(max_length=2)
-    is_rented = models.CharField(max_length=10)
+    available_to = models.DateField(default=(datetime.date.today() + datetime.timedelta(days=1)))
+    image_url = models.URLField(default="/static/images/pic01.jpg")
+    listing_type = models.CharField(max_length=2, default="NEW")
+    is_rented = models.CharField(max_length=10, default="notyet")
 
     # Relationship Fields
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
