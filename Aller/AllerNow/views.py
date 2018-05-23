@@ -6,7 +6,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from .forms import CarForm, LocationForm, PersonForm, PaymentForm, UserForm
 from .models import Car, Location, Person, Payment
-
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
@@ -60,23 +60,21 @@ def create_payment(request, carChoice, days, datefrom, dateto):
             car.is_rented = "none"
             # Send a message from admin to the successful lister and listee
             pm_write(
-                sender="admin",
-                recipients=(car.owner.user),
+                sender=User.objects.all().get(username="admin"),
+                recipient=car.owner.user,
                 subject="Congratulations, you have successfully rented your car!",
-                body='The user ' + request.user + ' has rented your car and their payment of ' + ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3)) + ' has processed successfully. They should contact you shortly. Please note the payment amount does not include our service fee. You will be credited ' + (((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3))/100)*5.5 + '. Thank you for using Aller Now.',
-                skip_notification=False
+                body='The user ' + request.user.username + ' has rented your car and their payment of $' + str((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3)) + ' has processed successfully. They should contact you shortly. Please note the payment amount does not include our service fee or GST. You will be credited $' + str((((car.price_per_unit * days) - ((((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3))/100)*5.5)) - (car.price_per_unit * days) / 10)) + '. <br><b>PLEASE SEND US A MESSAGE (REPLY) IF YOU WISH TO RELIST THIS BOOKING OR YOU CAN SIMPLY ADD A NEW LISTING.</b><br>Thank you for using Aller Now.',
             )
 
             pm_write(
-                sender="admin",
-                recipients=(request.user.person),
+                sender=User.objects.all().get(username="admin"),
+                recipient=request.user,
                 subject="Congratulations, you have successfully rented a car!",
-                body='You have rented a car from ' + car.owner.user + ' and your payment amount (' + (car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3) + ') was processed successfully. you should see a button in your dashboard shortly to contact the owner for pickup and dropoff information. Thank you for using Aller Now.',
-                skip_notification=False
+                body='You have rented a car from ' + car.owner.user.username + ' and your payment amount ($' + str((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3)) + ') was processed successfully. you should see a button in your dashboard shortly to contact the owner for pickup and dropoff information. Thank you for using Aller Now.',
             )
             
             car.save()
-            car.owner.user.person.credit_aud = car.owner.user.person.credit_aud + (((car.price_per_unit * days) + ((car.price_per_unit * days) / 10)) - (((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3))/100)*5.5)
+            car.owner.user.person.credit_aud = car.owner.user.person.credit_aud + (((car.price_per_unit * days) - ((((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3))/100)*5.5)) - (car.price_per_unit * days) / 10)
             request.user.person.credit_aud = request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10))
             request.user.person.save()
             messages.success(request, ('Your payment was successfully completed!'))
