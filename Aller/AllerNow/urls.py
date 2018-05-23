@@ -60,5 +60,5 @@ urlpatterns += (
     path('payment/create/', login_required(views.PaymentCreateView.as_view()), name='AllerNow_payment_create'),
     path('payment/detail/<slug:slug>/', login_required(views.PaymentDetailView.as_view()), name='AllerNow_payment_detail'),
     path('payment/update/<slug:slug>/', login_required(views.PaymentUpdateView.as_view()), name='AllerNow_payment_update'),
-    path('payment/choice/<int:carChoice>/<int:days>/', login_required(views.create_payment), name='AllerNow_pay_car'),
+    path('payment/choice/<int:carChoice>/<int:days>/<str:datefrom>/<str:dateto>/', login_required(views.create_payment), name='AllerNow_pay_car'),
 )

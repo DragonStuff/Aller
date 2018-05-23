@@ -20,6 +20,7 @@ from django.contrib import messages
 from django.forms import inlineformset_factory
 import datetime
 from django.db.models import Avg
+from postman.api import pm_write
 
 # Need to add delete view for Car.
 # https://stackoverflow.com/questions/19382664/python-django-delete-current-object
@@ -41,20 +42,41 @@ def rate(request, paymentid, rating):
     return redirect('dashboard')
 
 # Custom Payment view for controlling link between Person and Payment
-def create_payment(request, carChoice, days):
+def create_payment(request, carChoice, days, datefrom, dateto):
     car = Car.objects.get(id=carChoice)
     diff = abs((car.available_from-car.available_to).days)
     if request.method == 'POST':
             payment = Payment(
-                amount = (car.price_per_unit * days) + ((car.price_per_unit * days) / 10),
+                amount = (car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3),
                 days = days,
                 personpaying = request.user.person,
                 carchoice = car,
-                rating = 5
+                rating = 5,
+                datefrom = datefrom,
+                dateto = dateto,
             )
             payment.save()
+            # We want to disable the listing until the user has confirmed the ride was successful. 
             car.is_rented = "none"
+            # Send a message from admin to the successful lister and listee
+            pm_write(
+                sender="admin",
+                recipients=(car.owner.user),
+                subject="Congratulations, you have successfully rented your car!",
+                body='The user ' + request.user + ' has rented your car and their payment of ' + ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3)) + ' has processed successfully. They should contact you shortly. Please note the payment amount does not include our service fee. You will be credited ' + (((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3))/100)*5.5 + '. Thank you for using Aller Now.',
+                skip_notification=False
+            )
+
+            pm_write(
+                sender="admin",
+                recipients=(request.user.person),
+                subject="Congratulations, you have successfully rented a car!",
+                body='You have rented a car from ' + car.owner.user + ' and your payment amount (' + (car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3) + ') was processed successfully. you should see a button in your dashboard shortly to contact the owner for pickup and dropoff information. Thank you for using Aller Now.',
+                skip_notification=False
+            )
+            
             car.save()
+            car.owner.user.person.credit_aud = car.owner.user.person.credit_aud + (((car.price_per_unit * days) + ((car.price_per_unit * days) / 10)) - (((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3))/100)*5.5)
             request.user.person.credit_aud = request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10))
             request.user.person.save()
             messages.success(request, ('Your payment was successfully completed!'))
@@ -65,10 +87,13 @@ def create_payment(request, carChoice, days):
         'car': car,
         'payment': paymentf,
         'days': days,
-        'remainingCredit': request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10)),
-        'total': ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10)),
+        'remainingCredit': request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) - (((car.price_per_unit * days) / 10) * 3)),
+        'total': ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3)),
         'gst': ((car.price_per_unit * days) / 10),
         'maxDays': diff,
+        'insurance': (((car.price_per_unit * days) / 10) * 3),
+        'datefrom': datefrom,
+        'dateto': dateto,
     })
 
 # User update

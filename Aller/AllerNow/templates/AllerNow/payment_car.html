@@ -18,12 +18,13 @@
         <td id="maxday">{{ maxDays }}</td>
     </tr>
 </table>
+<p>Your booking is from {{ datefrom }} until {{ dateto }}.</p>
 <form method="post">
     <h4>Subtotal: ${% widthratio car.price_per_unit 1 days %} AUD</h4>
+    <h4>Mandatory Insurance: ${{ insurance|floatformat:'2' }} AUD</h4>
     <h4>GST: ${{ gst|floatformat:'2' }} AUD</h4>
     <h4>Total: ${{ total|floatformat:'2' }} AUD</h4>
     <hr>
-
     <div id="paybycredit" style="">
         <h3>You are paying with your account credit:</h3>
         <p>You currently have the following amount of credit: ${{ request.user.person.credit_aud|floatformat:'2' }} AUD</p>

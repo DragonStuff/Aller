@@ -40,15 +40,14 @@
 									<p>Details</p>
 									<h3>{{ object.carchoice.name }} | {{ object.carchoice.brand }} | {{ object.carchoice.body_type }} | {{ object.carchoice.price_per_unit }} | {{ object.carchoice.unit_size }} </h3>
 								</header>
-								<p>From: {{ object.carchoice.available_from }}, Until: {{  object.carchoice.available_to }}</p>
-								<p><b>Purchased Days: {{  object.days }}</b></p>
+								<p>From: {{ object.datefrom }}, Until: {{  object.dateto }}</p>
+								<p><b>Purchased Days: {{ object.days }}</b></p>
 							</div>
 						</div>
-						<p><b>Please negotiate with the lister of this car for the days you wish to pick it up and drop it off through private message:</b></p>
+						<p><b>Please message the lister of this car for pickup and dropoff information through private message:</b></p>
 						{% with usertosend=object.carchoice.owner.user.username %}
 							<a href="/messages/write/{{ usertosend }}/?subject=Enquiry for your {{ object.carchoice.body_type }} {{ object.carchoice.year }} request&body=I am enquiring about your vehicle {{ object.carchoice.name }} ..."><button class="btn btn-primary">Message</button></a>
 						{% endwith %}
-
 						<a id="{{ object.carchoice.id }}" style="display: none" href="/AllerNow/rating/{{ object.id }}/"></a>
 						<script>
 							function rate{{ object.carchoice.id }}(){
@@ -61,6 +60,7 @@
 							}
 						</script>
 						<p><button onclick="rate{{ object.carchoice.id }}()" class="btn btn-primary">Rate This Booking</button></p>
+						<a href="/messages/write/admin/?subject=Report for {{ object.id}}&body=Enter your report here."><button class="btn btn-primary">Report</button></a>
 					</div>
 				</section>
 				<br>
@@ -73,10 +73,7 @@
 			<section  style="display: '{{ object.is_rented }}'">
 				<div class="row" >
 				<div class="content column">
-				<a href="/AllerNow/car/update/{{ object.slug }}">Edit</a>
-				<p> User: {{ object.owner.first_name }} </p>
-				<p> Email: {{ object.owner.email }} </p>
-				<p> Rating: {{ object.owner.rating }} </p>
+				<a href="/AllerNow/car/update/{{ object.slug }}"><button>Edit</button></a>
 				</div>
 				<div class="content column">
 					<div class="inner">
@@ -84,8 +81,8 @@
 							<p>Details</p>
 							<h3>{{ object.name }} | {{ object.brand }} | {{ object.body_type }} | {{ object.price_per_unit }} | {{ object.unit_size }} </h3>
 						</header>
-						<p> Listing name: {{ object.name }}  </p>
-						<p> Listing: {{  object.slug }}  </p>
+						<p>Listing name: {{ object.name }}  </p>
+						<p>Created: {{ object.created }}</p>
 					</div>
 				</div>
 				</div>

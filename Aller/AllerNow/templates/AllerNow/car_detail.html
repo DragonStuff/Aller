@@ -8,8 +8,13 @@
 	</div>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/en-au.js"></script>
+
 <!-- Main -->
 <div id="main">
+	<style>.carim { filter: invert(100%); }</style>
 	<!-- One -->
 	<section id="one">
 		<div class="inner">
@@ -22,43 +27,101 @@
 	<!-- Two -->
 	<section id="two" class="spotlights">
 		<section>
-			<a href="generic.html" class="image">
+			<a href="" class="image">
 				<img src="{{ object.image_url }}" data-position="center center" />
 			</a>
 			<div class="content">
 				<div class="inner">
 					<header class="major">
-						<h3>{{ object.name }} | {{object.brand}} | {{object.body_type}} |      {{object.price_per_unit}} | {{object.unit_size}} </h3>
+						<h3>{{ object.name }} | {{object.brand}} ({{object.body_type}}) | ${{object.price_per_unit}}/day </h3>
 					</header>
-					<p> Transmission {{ object.transmission}}  </p>
-					<p> Kilometers {{  object.kilometers}}  </p>
-					<p> Seat {{   object.seats}}  </p>
-					<p> Condition {{  object.condition }}  </p>
-					<p> Plate {{  object.plate }}  </p>
-					<p> State {{  object.state }}  </p>
-					<p> Registered Owner {{  object.registered_owner }}  </p>
-					<p> Fuel Type {{  object.fuel_type }}  </p>
-					<p> Color {{  object.color }}  </p>
-					<p> Doors {{  object.doors }}  </p>
-					<p> Available From  {{  object.available_from  }}  </p>
-					<p> Available To  {{  object.available_to  }}  </p>
-					<p> Created {{  object.created  }}  </p>
-					<p> Last Updated {{  object.last_updated  }}  </p>
+					<h2 style="display:inline-block;vertical-align: middle;" align="center"><img class="carim" width="75px" height="75px" style="position:relative;vertical-align: middle;" src="/static/images/money.png"/>&nbsp;&nbsp;${{object.price_per_unit}}/day</h2>
+					<div class="row">
+						<div class="column">
+							<img class="carim" width="75px" src="/static/images/transmission.png"/>
+							<p>Automatic Transmission: {{ object.transmission }}</p>
+							<img class="carim" width="75px" src="/static/images/carseat.png"/>
+							<p>Seats: {{ object.seats }}</p>
+							<img class="carim" width="75px" src="/static/images/condition.png"/>
+							<p>Condition: {{  object.condition }}</p>
+							<img class="carim" width="75px" src="/static/images/state.png"/>
+							<p>State: {{ object.state }}</p>
+							<img class="carim" width="75px" src="/static/images/fuel.png"/>
+							<p>Fuel Type: {{ object.fuel_type }}</p>
+							<img class="carim" width="75px" src="/static/images/calendar.png"/>
+							<p>Available From: {{ object.available_from }}</p>
+						</div>
+						<div class="column">
+							<img class="carim" width="75px" src="/static/images/odometer.png"/>
+							<p>Kilometers: {{ object.kilometers }}</p>
+							<img class="carim" width="75px" src="/static/images/plate.png"/>
+							<p>Plate: {{ object.plate }}</p>
+							<img class="carim" width="75px" src="/static/images/person.png"/>
+							<p>Registered Owner: {{ object.registered_owner }}</p>
+							<img class="carim" width="75px" src="/static/images/color.png"/>
+							<p>Color: {{ object.color }}</p>
+							<img class="carim" width="75px" src="/static/images/cardoor.png"/>
+							<p>Doors: {{ object.doors }}</p>
+							<img class="carim" width="75px" src="/static/images/calendar.png"/>
+							<p>Available To: {{ object.available_to }}</p>
+						</div>
+					</div>
+
+					<p>Created {{ object.created }}</p>
+					<p>Last Updated {{ object.last_updated }}</p>
+
+					<hr>
+
+					<label for="datepicker">Booking from:</label>
+					<input type="text" id="datepicker">
+					<br>
+					<label for="datepickerto">Booking to:</label>
+					<input type="text" id="datepickerto">
+					&nbsp;&nbsp;<br>
+					{% if request.user.is_authenticated %}
+						<button onclick="rent()" class="btn btn-primary">Rent this car</button>
+					{% endif %}
+					
+					<script>
+						function testDay() {
+
+						} 
+						var picker = new Pikaday({
+							field: document.getElementById('datepicker'),
+							format: 'YYYY-MM-DD',
+							minDate: moment("{{ object.available_from }}").toDate(),
+							maxDate: moment("{{ object.available_to }}").toDate(),
+							onSelect: function() {
+								console.log(this.getMoment().format('YYYY-MM-DD'));
+							}
+						});
+						var picker2 = new Pikaday({
+							field: document.getElementById('datepickerto'),
+							format: 'YYYY-MM-DD',
+							// moment("{{ object.available_from }}", "MMMM Do, YYYY").format(,
+							minDate: moment("{{ object.available_from }}").toDate(),
+							maxDate: moment("{{ object.available_to }}").toDate(),
+							onSelect: function() {
+								console.log(this.getMoment().format("MMMM Do, YYYY"));
+							}
+						});
+					</script>
 					
 					<a id="aaa" style="display: none" href="/AllerNow/payment/choice/{{ object.id }}/"></a>
 					<script>
 						function rent(){
-							var days = prompt("How many days would you like to rent?", "1");
-							if (days <= 0 || days >= 366) {
-								alert("Invalid choice. Must be greater than 0 and less than a year.");
+							if (document.getElementById("datepicker").value == "") {
+								alert("Enter a From date.");
+							} else if (document.getElementById("datepickerto").value == "") {
+								alert("Enter a To date.");
 							} else {
-								location.replace(document.getElementById("aaa").href + days + "/");
+								console.log(document.getElementById("datepicker").value + document.getElementById("datepickerto").value)
+								var b = moment(document.getElementById("datepicker").value);
+								var a = moment(document.getElementById("datepickerto").value);
+								location.replace(document.getElementById("aaa").href + a.diff(b, 'days') + "/" + document.getElementById("datepicker").value + "/" + document.getElementById("datepickerto").value + "/");
 							}
 						}
 					</script>
-					{% if request.user.is_authenticated %}
-						<button onclick="rent()" class="btn btn-primary">Rent this car</button>
-					{% endif %}
 					&nbsp;&nbsp;
 					{% with usertosend=object.owner.user.username %}
 						<a href="/messages/write/{{ usertosend }}/?subject=Enquiry for your {{ object.body_type }} {{ object.year }} request&body=I am enquiring about your vehicle {{ object.name }} ..."><button class="btn btn-primary">Message</button></a>

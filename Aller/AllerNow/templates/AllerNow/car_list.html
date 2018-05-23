@@ -28,13 +28,13 @@
                 <div class="content">
                     <div class="inner">
                         <header class="major">
-                            <h3>{{ object.name }} | {{object.brand}} | {{object.body_type}} |      {{object.price_per_unit}} | {{object.unit_size}} </h3>
+                            <h3>{{ object.name }} | {{object.brand}} ({{object.body_type}}) | ${{object.price_per_unit}}/day </h3>
                         </header>
-                        <p> Transmission {{ object.transmission}}  </p>
-                        <p> Kilometers {{  object.kilometers}}  </p>
-                        <p> Seat {{   object.seats}}  </p>
-                        <p> Condition {{  object.condition }}  </p>
-                        <p> Year {{  object.year }}  </p>
+                        <p> Automatic transmission: {{ object.transmission}}  </p>
+                        <p> Kilometers: {{ object.kilometers }}  </p>
+                        <p> Seats: {{ object.seats }}  </p>
+                        <p> Owner: {{ object.owner.first_name }}  </p>
+                        <p> Year: {{ object.year }}  </p>
                         <a href="/AllerNow/car/detail/{{ object.slug }}"><button class="btn btn-primary">View more</button></a>
                     </div>
                 </div>

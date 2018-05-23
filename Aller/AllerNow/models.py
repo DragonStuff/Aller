@@ -158,6 +158,8 @@ class Payment(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     amount = PositiveIntegerField()
     days = PositiveIntegerField()
+    datefrom = models.DateField(default=datetime.date.today)
+    dateto = models.DateField(default=datetime.date.today)
 
     # Relationship Fields
     personpaying = models.ForeignKey(Person, on_delete=models.CASCADE)
