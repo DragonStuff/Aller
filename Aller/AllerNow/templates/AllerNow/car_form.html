@@ -5,9 +5,21 @@
 {% block content %}
 <p><a class="btn btn-default" href="{% url 'AllerNow_car_list' %}">Car Listing</a></p>
 <form method="post">
-{% csrf_token %}
-{{form|crispy}}
-    <select name="owner" class="select" required="" id="id_owner" style="display:none"> <option value="{{ user.person.id }}" selected="">---------</option></select>
+    {% csrf_token %}
+    {{form|crispy}}
+    <!--<select name="owner_id" class="select" required="true" id="owner_id"><option value="{{ user.person.id }}" selected="">{{ user.person.id }}</option></select>-->
+    <!--<div id="div_id_owner" class="control-group error"> 
+        <label for="id_owner" class="control-label requiredField">
+            Owner
+            <span class="asteriskField">*</span>
+        </label> 
+        <div class="controls"> 
+            <select name="owner" class="select" required="" id="id_owner"> 
+                <option value="{{ user.person.id }}">{{ user.person.first_name }}</option> 
+            </select> 
+            <p id="error_1_id_owner" class="help-block"><strong>This field is required.</strong></p> 
+        </div> 
+    </div>-->
 <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 {% endblock %}

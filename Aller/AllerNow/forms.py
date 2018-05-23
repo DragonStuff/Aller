@@ -25,7 +25,7 @@ class CarForm(forms.ModelForm):
 
     class Meta:
         model = Car
-        fields = ['name', 'body_type', 'price_per_unit', 'year', 'brand', 'plate', 'state', 'registered_owner', 'transmission', 'condition', 'kilometers', 'fuel_type', 'color', 'seats', 'doors', 'available_from', 'available_to', 'image_url', 'location']
+        fields = ['name', 'body_type', 'price_per_unit', 'year', 'brand', 'plate', 'state', 'registered_owner', 'transmission', 'condition', 'kilometers', 'fuel_type', 'color', 'seats', 'doors', 'available_from', 'available_to', 'image_url', 'location', 'owner']
         available_from = forms.DateField(widget=AdminDateWidget())
         available_to = forms.DateField(widget=AdminDateWidget())
         labels = {
