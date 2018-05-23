@@ -77,6 +77,7 @@ def create_payment(request, carChoice, days, datefrom, dateto):
             car.owner.user.person.credit_aud = car.owner.user.person.credit_aud + (((car.price_per_unit * days) - ((((car.price_per_unit * days) + ((car.price_per_unit * days) / 10) + (((car.price_per_unit * days) / 10) * 3))/100)*5.5)) - (car.price_per_unit * days) / 10)
             request.user.person.credit_aud = request.user.person.credit_aud - ((car.price_per_unit * days) + ((car.price_per_unit * days) / 10))
             request.user.person.save()
+            car.owner.user.person.save()
             messages.success(request, ('Your payment was successfully completed!'))
             return redirect('dashboard')
     else:
