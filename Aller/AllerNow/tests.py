@@ -278,7 +278,7 @@ class PaymentViewTest(unittest.TestCase):
         self.client = Client()
 
     def test_list_payment(self):
-        url = reverse('app_name_payment_list')
+        url = reverse('AllerNow_payment_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
@@ -305,6 +305,6 @@ class PaymentViewTest(unittest.TestCase):
             "personpaying": create_person().pk,
             "carchoice": create_car().pk,
         }
-        url = reverse('app_name_payment_update', args=[payment.slug,])
+        url = reverse('AllerNow_payment_update', args=[payment.slug,])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)

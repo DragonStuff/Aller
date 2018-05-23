@@ -173,8 +173,8 @@ class Payment(models.Model):
         return u'%s' % self.slug
 
     def get_absolute_url(self):
-        return reverse('app_name_payment_detail', args=(self.slug,))
+        return reverse('AllerNow_payment_detail', args=(self.slug,))
 
 
     def get_update_url(self):
-        return reverse('app_name_payment_update', args=(self.slug,))
+        return reverse('AllerNow_payment_update', args=(self.slug,))

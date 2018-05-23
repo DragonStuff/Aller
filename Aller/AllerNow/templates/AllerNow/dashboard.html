@@ -28,7 +28,7 @@
 				<section style="display: '{{ object.is_rented }}'">
 					<div class="row" >
 						<div class="content column">
-							<p> Payment ID: {{ object.slug }}</p>
+							<p> Payment ID: <a href="/AllerNow/payment/detail/{{ object.slug }}/">{{ object.slug }}</a></p>
 							<p> Payment Date: {{ object.created }}</p>
 							<img width="100px" src="{{ object.carchoice.image_url }}"/>
 							<p> User: {{ object.carchoice.owner.first_name }} {{ object.carchoice.owner.last_name }} </p>

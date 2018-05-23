@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'app_name_payment_list' %}">Payment Listing</a></p>
+<h1>Booking Receipt - <i>"{{ object.carchoice.name }}"</i> for {{ object.personpaying.first_name }}</h1>
 <table class="table">
-<tr><td>name</td><td>{{ object.name }}</td></tr>
-<tr><td>slug</td><td>{{ object.slug }}</td></tr>
-<tr><td>created</td><td>{{ object.created }}</td></tr>
-<tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+<tr><td>Payment ID: </td><td>{{ object.slug }}</td></tr>
+<tr><td>Date Paid: </td><td>{{ object.created }}</td></tr>
+<tr><td>Final Date:</td><td>{{ object.last_updated }}</td></tr>
+<tr><td>Car Choice: </td><td>{{ object.carchoice.name }}</td></tr>
+<tr><td>From User: </td><td>{{ object.carchoice.owner.first_name }}</td></tr>
+<tr><td>Booked From: </td><td>{{ object.datefrom }}</td></tr>
+<tr><td>Booked To: </td><td>{{ object.dateto }}</td></tr>
 </table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Payment</a>
-
 {% endblock %}
