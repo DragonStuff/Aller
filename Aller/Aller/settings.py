@@ -150,10 +150,11 @@ INSTALLED_APPS += [
     'channels'
 ]
 
+# Enter your auth0 information below.
 SOCIAL_AUTH_TRAILING_SLASH = False                    # Remove end slash from routes
-SOCIAL_AUTH_AUTH0_DOMAIN = 'iam.au.auth0.com'
-SOCIAL_AUTH_AUTH0_KEY = 'XKKiKBuGYh14vCm7XpEhs2EiSvs0ERTZ'
-SOCIAL_AUTH_AUTH0_SECRET = 'ffA366aare3hzdVxROBW0M0Hevcp-xxhXzytgk2OiLUQjsVJoU5I79xnG80hOhKo'
+SOCIAL_AUTH_AUTH0_DOMAIN = ''
+SOCIAL_AUTH_AUTH0_KEY = ''
+SOCIAL_AUTH_AUTH0_SECRET = ''
 
 SOCIAL_AUTH_AUTH0_SCOPE = [
     'openid',
