@@ -70,23 +70,24 @@
 	<!-- Two -->
 	<section id="two" class="spotlights">
 			{% for object in myCars %}
-			<section  style="display: '{{ object.is_rented }}'">
-				<div class="row" >
-				<div class="content column">
-				<a href="/AllerNow/car/update/{{ object.slug }}"><button>Edit</button></a>
-				</div>
-				<div class="content column">
-					<div class="inner">
-						<header class="major">
-							<p>Details</p>
-							<h3>{{ object.name }} | {{ object.brand }} | {{ object.body_type }} | {{ object.price_per_unit }} | {{ object.unit_size }} </h3>
-						</header>
-						<p>Listing name: {{ object.name }}  </p>
-						<p>Created: {{ object.created }}</p>
+				<section style="display: '{{ object.is_rented }}'">
+					<div class="row" >
+						<div class="content column">
+							<a href="/AllerNow/car/update/{{ object.slug }}"><button>Edit</button></a>
+						</div>
+						<div class="content column">
+							<div class="inner">
+								<header class="major">
+									<p>Details</p>
+									<h3>{{ object.name }} | {{ object.brand }} | {{ object.body_type }} | {{ object.price_per_unit }} | {{ object.unit_size }} </h3>
+								</header>
+								<p>Listing name: {{ object.name }}  </p>
+								<p>Created: {{ object.created }}</p>
+							</div>
+						</div>
 					</div>
-				</div>
-				</div>
-			</section>
+				</section>
+				<br>
 			{% endfor %}
 			<br>
 		</section>

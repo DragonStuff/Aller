@@ -113,7 +113,7 @@ class Car(models.Model):
     unit_size = CharField(max_length=2, choices=TIMEUNIT_CHOICES, default=DAILY)
     year = models.CharField(max_length=4)
     brand = models.CharField(max_length=30)
-    plate = models.CharField(max_length=8)
+    plate = models.CharField(max_length=6)
     state = models.CharField(max_length=3)
     registered_owner = models.CharField(max_length=30)
     transmission = models.BooleanField()
@@ -125,7 +125,7 @@ class Car(models.Model):
     doors = models.PositiveSmallIntegerField()
     available_from = models.DateField(default=datetime.date.today)
     available_to = models.DateField(default=(datetime.date.today() + datetime.timedelta(days=1)))
-    image_url = models.URLField(default="/static/images/pic01.jpg")
+    image_url = models.URLField(default="https://127.0.0.1:8000/static/images/pic01.jpg")
     listing_type = models.CharField(max_length=2, default="NEW")
     is_rented = models.CharField(max_length=10, default="notyet")
 

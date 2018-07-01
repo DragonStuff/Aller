@@ -194,7 +194,8 @@ class CarSearchListView(CarListView):
                 functools.reduce(operator.or_, (Q(location__name__icontains=q) for q in query_list)) |
                 functools.reduce(operator.or_, (Q(year__icontains=q) for q in query_list)) |
                 functools.reduce(operator.or_, (Q(registered_owner__icontains=q) for q in query_list)) |
-                functools.reduce(operator.or_, (Q(brand__icontains=q) for q in query_list))
+                functools.reduce(operator.or_, (Q(brand__icontains=q) for q in query_list)) |
+                functools.reduce(operator.or_, (Q(price_per_unit__icontains=q) for q in query_list))
             )
         return result
 

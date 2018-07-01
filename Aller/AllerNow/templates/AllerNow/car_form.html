@@ -7,7 +7,7 @@
 <form method="post">
     {% csrf_token %}
     {{form|crispy}}
-    <!--<select name="owner_id" class="select" required="true" id="owner_id"><option value="{{ user.person.id }}" selected="">{{ user.person.id }}</option></select>-->
+    <select name="owner" class="select" required="true" id="id_owner"><option value="{{ user.person.id }}" selected>{{ user.person.id }}</option></select>
     <!--<div id="div_id_owner" class="control-group error"> 
         <label for="id_owner" class="control-label requiredField">
             Owner

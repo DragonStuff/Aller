@@ -3,6 +3,49 @@ from .models import Location, Car, Person, Payment
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.models import User
 
+#Ada
+class CreditCardField(forms.CharField):
+  def get_cc_type(self, number):
+    """
+    Gets credit card type given number. Based on values from Wikipedia page
+    "Credit card number".
+    <a href="http://en.wikipedia.org/w/index.php?title=Credit_card_number
+">http://en.wikipedia.org/w/index.php?title=Credit_card_number
+</a>    """
+    number = str(number)
+    #group checking by ascending length of number
+    if len(number) == 13:
+      if number[0] == "4":
+        return "Visa"
+    elif len(number) == 14:
+      if number[:2] == "36":
+        return "MasterCard"
+    elif len(number) == 15:
+      if number[:2] in ("34", "37"):
+        return "American Express"
+    elif len(number) == 16:
+      if number[:4] == "6011":
+        return "Discover"
+      if number[:2] in ("51", "52", "53", "54", "55"):
+        return "MasterCard"
+      if number[0] == "4":
+        return "Visa"
+    return "Unknown"
+ 
+  def clean(self, value):
+    """Check if given CC number is valid and one of the
+    card types we accept"""
+    if value and (len(value) < 13 or len(value) > 16):
+      raise forms.ValidationError("Please enter in a valid "+\
+          "credit card number.")
+    elif self.get_cc_type(value) not in ("Visa", "MasterCard",
+        "American Express", "Discover"):
+ 
+      raise forms.ValidationError("Please enter in a Visa, "+\
+          "Master Card, Discover, or American Express credit card number.")
+ 
+    return super(CreditCardField, self).clean(value)
+
 # User view, update and control.
 class UserForm(forms.ModelForm):
     class Meta:
@@ -10,6 +53,7 @@ class UserForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'email')
 
 class PersonForm(forms.ModelForm):
+    paycardnumber = CreditCardField(required = True, label = "Card Number")
     class Meta:
         model = Person
         fields = ('first_name', 'last_name', 'date_of_birth', 'phone_number', 'postcode', 'email', 'address', 'paycardnumber', 'paycardname', 'paycardexpiry')
