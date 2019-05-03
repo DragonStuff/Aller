@@ -1,4 +1,5 @@
 language: python
+dist: xenial
 
 python:
   - "3.6"
@@ -12,6 +13,4 @@ install:
   - pip install django --quiet
 
 script:
-  - sudo apt-cache policy sqlite3
-  - sudo apt-get install sqlite3=3.8.1-1ubuntu3
   - python Aller/manage.py migrate --run-syncdb
