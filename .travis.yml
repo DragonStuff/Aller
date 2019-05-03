@@ -12,5 +12,5 @@ install:
   - pip install django --quiet
 
 script:
-  - sudo apt-get install sqlite3=3.8.2-1
+  - sudo apt-get install sqlite3=3.8.2-1ubuntu1
   - python Aller/manage.py migrate --run-syncdb
