@@ -45,7 +45,7 @@ social-auth-core==1.7.0
 stripe==1.79.1
 suds-jurko==0.6
 text-unidecode==1.2
-Twisted==19.7.0
+Twisted==22.10.0
 txaio==2.9.0
 urllib3>=1.24.2
 wrapt==1.10.11
